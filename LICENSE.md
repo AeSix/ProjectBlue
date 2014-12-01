@@ -1,7 +1,7 @@
 The following license in whole can be found here:
 http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 For a simplified explanation please see LICENSE-Simplified
-An Explicit exception has been provided at the end of this document.
+An Explicit exception has been provided at the end of this document
 
 ![88x31](https://cloud.githubusercontent.com/assets/5191757/5241035/7da41bbe-78e1-11e4-963a-7f929ec02f80.png)
 
