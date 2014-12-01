@@ -194,4 +194,3 @@ Please contact AeSix via github regarding participation in this project. Further
 Though this document contains many familiar ideas, this document nor the ideas contained within are to be used for any other purposes than for Project ProjectBlue (Previously XENIUM) or it's direct successor.
 
 This document is copyright 2014 AeSix.com ALL RIGHTS RESERVED (Permission is hereby given to contributors to ProjectBlue to use this file in a manner conductive of assisting ProjectBlue in completing fruition and for no other purposes) This copyright is not intended to supersede the policies of Github, nor to act in any way to limit the rights of any contributor, but is intended only to protect the integrity of ProjectBlue. This file must remain unaltered from it's original version and must be supplied with all forks and derivations of AeSix/ProjectBlue.
-```
