@@ -1,6 +1,8 @@
 /*
- * Copyright (c) 2014 AeSix.com. All rights reserved.
- * Based on archive.oreilly.com/pub/h/1966 and in fact is a comment-removed duplication for version 0.1
+ * Copyright (c) 2014 AeSix.com. 
+ * Based on archive.oreilly.com/pub/h/1966 with unknown license, sufficient changes made to base.
+ * This code is free to use, modify in regards to my corrections and extensions. O'Reilly does not
+ * have a license specified for the original code - am assuming it is public / open. 
  * Gratitude to https://gist.github.com/chrisgward for assistance in overcoming ping-timeouts.
  */ 
 
