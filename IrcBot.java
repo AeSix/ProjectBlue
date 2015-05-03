@@ -12,7 +12,7 @@ import java.net.*;
 public class XeniaBot {
 	public static void main(String[] args) throws Exception {
 		// The server to connect to and our details.
-		String server = "ipv6.esper.net";
+		String server = "ipv6.local.host";
 		int port = 6667;
 		String nick = "Xenia";
 		String ident = "Xenia";
