@@ -12,26 +12,29 @@ import java.net.*;
 public class XeniaBot {
 	public static void main(String[] args) throws Exception {
 		// The server to connect to and our details.
-		String server = "ipv6.local.host";
+		String server = "ipv6.esper.net";
 		int port = 6667;
 		String nick = "Xenia";
 		String ident = "Xenia";
 		String rname = "Xenium IRC Bot";
-		String channel = "#Xenia";
+		String channel = "#AeSix";
+		String outip = "todoClientConnectedHost";
+		String altnick = "XeniaAlt";
+		String botmstr = "AeSix";
 		//TODO: implement ctcp handlers
-		//String ctcpver = "Xenia IRC Bot v.002";
+		//String ctcpver = "Xenia IRC Bot v.003";
 		//String ctcpfin = "By the wrath of the goats!";
 		
 		// Connect directly to the IRC server.
-		@SuppressWarnings("resource")
+		//@SuppressWarnings("resource")
 		Socket socket = new Socket(server,port);
-		System.out.println("INFO: Connecting to server: Created socket");
+		System.out.println("INFO: Connecting to server: " + server + ":" + port);
 		BufferedReader reader = new BufferedReader(
 				new InputStreamReader(socket.getInputStream( )));
-		System.out.println("INFO: Connecting to server: Created reader");
+		System.out.println("INFO: Connecting to server: ESTABLISHED!");
 		BufferedWriter writer = new BufferedWriter(
 				new OutputStreamWriter(socket.getOutputStream( )));
-		System.out.println("INFO: Connecting to server: Created writer");
+		System.out.println("INFO: Logging into IRC as: " + nick + "!" + ident + "@" + outip + ": " + rname );
 		
 		// Log on to the server.
 		writer.write("NICK " + nick + "\r\n");
@@ -40,26 +43,30 @@ public class XeniaBot {
 		
 		// Read lines from the server until it tells us we have connected.
 		String line = null;
+		int altnickc = 0;
 		while ((line = reader.readLine( )) != null) {
 			if (line.toLowerCase( ).startsWith("ping ")) {
-				System.out.println("INFO: Connecting to server: Received PING!");
 				// We must respond to PINGs to avoid being disconnected.
 				writer.write("PONG " + line.substring(5) + "\r\n");
-				System.out.println("INFO: Connecting to server: Sent PONG!");
 				writer.flush( );
-				System.out.println("INFO: Connecting to server: Flushed Writer");
 			}
 			else if (line.indexOf("004") >= 0) {
 				// We are now logged in.
+				System.out.println("INFO: Now logged into IRC: Joining " + channel);
 				break;
 			}
-			else if (line.indexOf("433") >= 0) {
-				System.out.println("Nickname is already in use.");
-				return;
-				//TODO: retry with new nick
+			else if ((line.indexOf("433") >= 0) && (altnickc == 0)) {
+				System.out.println("Nickname is already in use. Trying alternate nick");
+				altnickc = 1;
+				writer.write("NICK " + altnick + " \r\n");
+				writer.flush();
 			}
-			else if (line.indexOf("") >= 0) {
-				System.out.println(line.indexOf(""));
+			else if ((line.indexOf("433") >= 0) && (altnickc == 1)) {
+				System.out.println("ERROR: Connection Not Possible!");
+				return;
+			}
+			else {
+				System.out.println(line);
 			}
 		}
 		
@@ -70,19 +77,13 @@ public class XeniaBot {
 		// Keep reading lines from the server.
 		while ((line = reader.readLine( )) != null) {
 			if (line.toLowerCase( ).startsWith("ping ")) {
-				System.out.println("received PING");
 				// We must respond to PINGs to avoid being disconnected.
 				writer.write("PONG " + line.substring(5) + "\r\n");
-				System.out.println("sent PONG");
 				writer.flush( );
-				System.out.println("flushed writer");
-		    }
+			}
 			else if (line.toLowerCase().contains("moo")) {
-				System.out.println("received moo");
 				writer.write("PRIVMSG " + channel + " :moooo \r\n");
-				System.out.println("sent mooooo");
 				writer.flush();
-				System.out.println("flushed moo writer");
 			}
 			else if (line.toLowerCase( ).contains(" :!")) {
 				if (line.substring(1).toLowerCase( ).contains("!snarf")) {
@@ -92,6 +93,12 @@ public class XeniaBot {
 				else if (line.substring(1).toLowerCase( ).contains("!help")) {
 					writer.write("PRIVMSG " + channel + " :There is no help for the wicked! \r\n");
 					writer.flush();
+				}
+				else if (line.substring(1).toLowerCase( ).contains("!shit") && line.substring(1).startsWith(botmstr)) {
+					System.out.println(line);
+					writer.write("PRIVMSG " + channel + " :HELP ME! I'm meeeeeeeeelting...\r\n");
+					writer.flush();
+					return;
 				}
 				else {
 					writer.write("PRIVMSG " + channel + " :Unrecognized Command! \r\n");
