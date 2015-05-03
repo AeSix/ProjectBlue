@@ -21,7 +21,7 @@ public class IrcBot {
         String rname = "Xenium IRC Bot";
         String channel = "#Xenia";
         //TODO: implement ctcp handlers
-        //String ctcpver = "Xenia IRC Bot v.001";
+        //String ctcpver = "Xenia IRC Bot v.002";
         //String ctcpfin = "By the wrath of the goats!";
         
         // Connect directly to the IRC server.
@@ -79,6 +79,27 @@ public class IrcBot {
                 writer.flush( );
                 System.out.println("flushed writer");
             }
+			else if (line.toLowerCase().contains("moo")) {
+				System.out.println("received moo");
+				writer.write("PRIVMSG " + channel + " :moooo \r\n");
+				System.out.println("sent mooooo");
+				writer.flush();
+				System.out.println("flushed moo writer");
+			}
+			else if (line.toLowerCase( ).contains(" :!")) {
+				if (line.substring(1).toLowerCase( ).contains("!snarf")) {
+					writer.write("PRIVMSG " + channel + " :THUNDERCATS HO! \r\n");
+					writer.flush();
+				}
+				else if (line.substring(1).toLowerCase( ).contains("!help")) {
+					writer.write("PRIVMSG " + channel + " :There is no help for the wicked! \r\n");
+					writer.flush();
+				}
+				else {
+					writer.write("PRIVMSG " + channel + " :Unrecognized Command! \r\n");
+					writer.flush();
+				}
+			}
             else {
                 // Print the raw line received by the bot.
                 System.out.println(line);
